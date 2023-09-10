@@ -39,7 +39,7 @@ npm run test
 👤 **Antoine Voillot**
 
 * Github: [@Psykoxen](https://github.com/Psykoxen)
-* LinkedIn: [@www.linkedin.com\/in\/antoine-voillot](https://linkedin.com/in/www.linkedin.com\/in\/antoine-voillot)
+* LinkedIn: [Antoine Voillot](https://linkedin.com/in/www.linkedin.com\/in\/antoine-voillot)
 
 ## 🤝 Contributing
 
