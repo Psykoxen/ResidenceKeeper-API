@@ -10,7 +10,7 @@ export namespace UserService {
     UserHelper.createUser(user);
   };
 
-  export const getUserByEmail = (email: string, password: string): any => {
-    return UserHelper.getUserByEmail(email, password);
+  export const getUserByEmail = (email: string, keypass: string): any => {
+    return UserHelper.getUserByEmail(email, keypass);
   };
 }

@@ -6,7 +6,7 @@ export namespace UserHelper {
   export const getAllUsers = (): Array<User> => {
     const rows = database.prepare("SELECT * FROM user").all();
     const users: User[] = rows.map(
-      (row: any) => new User(row.id, row.username, row.email, row.password)
+      (row: any) => new User(row.id, row.username, row.email, row.keypass)
     );
 
     return users;
@@ -16,20 +16,23 @@ export namespace UserHelper {
     database
       .prepare(
         `
-        INSERT INTO user (username, email, password) VALUES (@username, @email,@password)
+        INSERT INTO user (username, email, keypass) VALUES (@username, @email,@keypass)
         `
       )
       .run(user);
   };
 
-  export const getUserByEmail = (email: string, password: string): any => {
-    const user: User = database
-      .prepare("SELECT * FROM user WHERE email = ? AND password = ?")
-      .get(email, sha256(password)) as User;
-    if (!user) {
-      return null;
-    } else {
+  export const getUserByEmail = (
+    email: string,
+    keypass: string
+  ): User | null => {
+    try {
+      const user = database
+        .prepare("SELECT * FROM user WHERE email = ? AND keypass = ?")
+        .get(email, keypass) as User;
       return user;
+    } catch (error) {
+      return null;
     }
   };
 }

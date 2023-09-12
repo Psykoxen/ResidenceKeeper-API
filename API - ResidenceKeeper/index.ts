@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import api from "./api";
 import { connection } from "./api/config/database";
+import cors from "cors";
 
 const app = express();
 

@@ -17,12 +17,12 @@ route.post("/create", (req: Request, res: Response) => {
 });
 
 route.post("/login", (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const reponse = UserService.getUserByEmail(email, password);
-  if (reponse instanceof user) {
+  const { email, keypass } = req.body;
+  const reponse = UserService.getUserByEmail(email, keypass);
+  if (reponse) {
     res.sendStatus(200);
   } else {
-    res.sendStatus(401);
+    res.sendStatus(400);
   }
 });
 
