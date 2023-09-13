@@ -5,10 +5,9 @@ import { connection } from "./api/config/database";
 import cors from "cors";
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use("/api", api);
-app.use(cors());
 
 const server = createServer(app);
 connection()
