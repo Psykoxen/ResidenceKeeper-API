@@ -20,12 +20,12 @@ route.post("/addresidents", (req: Request, res: Response) => {
   res.sendStatus(200);
 });
 
-route.get("/getresidents", (req: Request, res: Response) => {
+route.post("/getresidents", (req: Request, res: Response) => {
   const { homeId } = req.body;
   res.send(HomeService.getHomeResidents(homeId));
 });
 
-route.get("/gethomesresident", (req: Request, res: Response) => {
+route.post("/gethomesresident", (req: Request, res: Response) => {
   const { userId } = req.body;
   res.send(HomeService.getHomeByResidentId(userId));
 });
