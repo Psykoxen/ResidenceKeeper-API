@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Residences.css";
+import { Link } from "react-router-dom";
+import { useResidence } from "./ResidenceProvider";
 
 function Residences() {
   interface Home {
@@ -9,6 +11,7 @@ function Residences() {
   }
   const [homesData, setHomesData] = useState<Home[]>([]);
   const [loading, setLoading] = useState(true);
+  const { setSelectedHomeId } = useResidence();
 
   useEffect(() => {
     async function fetchData() {
@@ -29,29 +32,45 @@ function Residences() {
           throw new Error("La requête a échoué.");
         }
 
-        const data: Home[] = await response.json(); // Indiquez le type de données ici
+        const data: Home[] = await response.json();
         setHomesData(data);
         setLoading(false);
-        console.log(data);
-        // Indique que les données ont été chargées avec succès
       } catch (error) {
         console.error("Erreur lors de la requête API : ", error);
-        // Vous pouvez gérer l'erreur ici si nécessaire
       }
     }
 
-    fetchData(); // Appelez la fonction fetchData au chargement de la page
-  }, []); // Les crochets vides [] indiquent que cette fonction doit être exécutée une seule fois au chargement du composant
+    fetchData();
+  }, []);
+
+  function openResidence(homeId: number) {
+    console.log(homeId);
+    setSelectedHomeId(homeId);
+  }
 
   return (
     <div>
+      <div className="header">
+        <h1>My Residences</h1>
+      </div>
       {loading ? (
         <p>Chargement en cours...</p>
       ) : (
         <div className="residences">
-          {/* Affichez ici les données récupérées, par exemple : */}
           {homesData.map((home) => (
-            <div key={home.id}>{home.name}</div>
+            <Link
+              key={home.id}
+              onClick={() => openResidence(home.id)}
+              to={`/residences/detail`}
+            >
+              <div className="ico">
+                <p>🏠</p>
+              </div>
+              <h2>{home.name}</h2>
+              <div className="setting">
+                <p>●●●</p>
+              </div>
+            </Link>
           ))}
         </div>
       )}
