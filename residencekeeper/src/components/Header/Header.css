@@ -1,0 +1,15 @@
+.header {
+  background-color: #007bff; /* Couleur de fond */
+  color: white; /* Couleur du texte */
+  text-align: center;
+  padding: 20px 30px 40px 30px; /* Espace intérieur */
+  clip-path: ellipse(70% 70% at 50% 00%);
+  position: relative;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px; /* Taille du texte */
+  padding-top: 5px;
+}
