@@ -38,8 +38,8 @@ npm run test
 
 👤 **Antoine Voillot**
 
-* Github: [@Psykoxen](https://github.com/Psykoxen)
-* LinkedIn: [Antoine Voillot](https://linkedin.com/in/www.linkedin.com\/in\/antoine-voillot)
+- Github: [@Psykoxen](https://github.com/Psykoxen)
+- LinkedIn: [Antoine Voillot](https://linkedin.com/in/www.linkedin.com/in/antoine-voillot)
 
 ## 🤝 Contributing
 
@@ -53,6 +53,3 @@ Give a ⭐️ if this project helped you!
 
 Copyright © 2023 [Antoine Voillot](https://github.com/Psykoxen).<br />
 This project is [ISC](https://github.com/Psykoxen/ResidenceKeeper/blob/master/LICENSE) licensed.
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
