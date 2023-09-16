@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
+import User from "../../types/User";
 
 function Login() {
+  const [user, setUserData] = useState<User | null>(null);
   const [email, setEmail] = useState("");
   const [keypass, setPassword] = useState("");
 
@@ -21,9 +23,15 @@ function Login() {
         },
       });
 
+      console.log(response);
       if (response.ok) {
+        const data: User = await response.json();
+        setUserData(data);
+        console.log(data);
+
         console.log("Connexion Success !");
         window.location.href = "/residences";
+        window.sessionStorage.setItem("userId", data.id.toString());
       } else {
         // La connexion a échoué, affichez un message d'erreur.
       }

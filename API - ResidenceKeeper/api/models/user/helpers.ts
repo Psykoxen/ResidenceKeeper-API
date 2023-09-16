@@ -1,6 +1,7 @@
 import sha256 from "sha256";
 import { database } from "../../config/database";
 import User from "./user";
+import Payment from "../payment/payment";
 
 export namespace UserHelper {
   export const getAllUsers = (): Array<User> => {
@@ -31,6 +32,47 @@ export namespace UserHelper {
         .prepare("SELECT * FROM user WHERE email = ? AND keypass = ?")
         .get(email, keypass) as User;
       return user;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  export const getBalance = (userId: number, homeId: number): any => {
+    try {
+      const rows = database
+        .prepare(
+          `
+          SELECT * FROM payment WHERE user_id = @userId AND home_id = @homeId
+          `
+        )
+        .all({ userId, homeId });
+
+      const payments: Payment[] = rows.map(
+        (row: any) =>
+          new Payment(
+            row.id,
+            row.user_id,
+            row.home_id,
+            row.amount,
+            row.date,
+            row.name,
+            row.category_id,
+            row.expense
+          )
+      );
+
+      let balance = 0;
+
+      payments.forEach((payment) => {
+        console.log(Boolean(payment.expense));
+        if (payment.expense === "true") {
+          balance -= payment.amount;
+        } else {
+          balance += payment.amount;
+        }
+      });
+
+      return { balance: balance };
     } catch (error) {
       return null;
     }
