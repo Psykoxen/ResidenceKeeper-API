@@ -13,7 +13,8 @@ export namespace PaymentHelper {
           row.amount,
           row.date,
           row.name,
-          row.category_id
+          row.category_id,
+          row.expense
         )
     );
 
@@ -24,7 +25,7 @@ export namespace PaymentHelper {
     database
       .prepare(
         `
-        INSERT INTO payment (user_id, home_id, amount, date, name, category_id) VALUES (@user_id, @home_id, @amount, @date, @name, @category_id)
+        INSERT INTO payment (user_id, home_id, amount, date, name, category_id, expense) VALUES (@user_id, @home_id, @amount, @date, @name, @category_id, @expense)
         `
       )
       .run(payment);
@@ -60,7 +61,8 @@ export namespace PaymentHelper {
           row.amount,
           row.date,
           row.name,
-          row.category_id
+          row.category_id,
+          row.expense
         )
     );
 
@@ -71,7 +73,7 @@ export namespace PaymentHelper {
     const rows = database
       .prepare(
         `
-        SELECT * FROM payment WHERE home_id = @home_id
+        SELECT * FROM payment WHERE home_id = @homeId
         `
       )
       .all({ homeId });
@@ -84,7 +86,8 @@ export namespace PaymentHelper {
           row.amount,
           row.date,
           row.name,
-          row.category_id
+          row.category_id,
+          row.expense
         )
     );
 
@@ -120,7 +123,8 @@ export namespace PaymentHelper {
             row.amount,
             row.date,
             row.name,
-            row.category_id
+            row.category_id,
+            row.expense
           )
       );
 

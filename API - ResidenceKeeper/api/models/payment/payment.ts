@@ -6,6 +6,7 @@ class Payment {
   date: Date;
   name: string;
   category_id: number;
+  expense: string;
 
   constructor(
     id: number,
@@ -14,7 +15,8 @@ class Payment {
     amount: number,
     date: Date,
     name: string,
-    category_id: number
+    category_id: number,
+    expense: string
   ) {
     this.id = id;
     this.user_id = user_id;
@@ -23,6 +25,7 @@ class Payment {
     this.date = date;
     this.name = name;
     this.category_id = category_id;
+    this.expense = expense;
   }
 }
 
