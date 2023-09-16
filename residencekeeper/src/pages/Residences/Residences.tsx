@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Residences.css";
 import { Link } from "react-router-dom";
-import { useResidence } from "./ResidenceProvider";
+import Home from "../../types/Home";
+import Header from "../../components/Header/Header";
 
 function Residences() {
-  interface Home {
-    id: number;
-    name: string;
-    // Autres propriétés de l'objet Home
-  }
   const [homesData, setHomesData] = useState<Home[]>([]);
   const [loading, setLoading] = useState(true);
-  const { setSelectedHomeId } = useResidence();
 
   useEffect(() => {
     async function fetchData() {
@@ -45,14 +40,12 @@ function Residences() {
 
   function openResidence(homeId: number) {
     console.log(homeId);
-    setSelectedHomeId(homeId);
+    window.sessionStorage.setItem("currentHome", homeId.toString());
   }
 
   return (
     <div>
-      <div className="header">
-        <h1>My Residences</h1>
-      </div>
+      <Header titleText="My Residences" />
       {loading ? (
         <p>Chargement en cours...</p>
       ) : (
