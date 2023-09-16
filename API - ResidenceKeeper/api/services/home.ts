@@ -26,4 +26,12 @@ export namespace HomeService {
   export const getHomeById = (homeId: number): any => {
     return HomeHelper.getHomeById(homeId);
   };
+
+  export const importHomes = (): void => {
+    return HomeHelper.importHomes();
+  };
+
+  export const exportHomes = (): void => {
+    return HomeHelper.exportHomes();
+  };
 }

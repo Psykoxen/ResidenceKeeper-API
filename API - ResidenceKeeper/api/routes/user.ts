@@ -26,4 +26,14 @@ route.post("/login", (req: Request, res: Response) => {
   }
 });
 
+route.get("/import", (req: Request, res: Response) => {
+  UserService.importUsers();
+  res.sendStatus(200);
+});
+
+route.get("/export", (req: Request, res: Response) => {
+  UserService.exportUsers();
+  res.sendStatus(200);
+});
+
 export default route;

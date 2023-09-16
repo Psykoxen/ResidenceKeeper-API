@@ -17,4 +17,12 @@ export namespace CategoryService {
   export const getCategoryById = (id: number): Category => {
     return CategoryHelper.getCategoryById(id);
   };
+
+  export const importCategories = (): void => {
+    CategoryHelper.importCategories();
+  };
+
+  export const exportCategories = (): void => {
+    CategoryHelper.exportCategories();
+  };
 }

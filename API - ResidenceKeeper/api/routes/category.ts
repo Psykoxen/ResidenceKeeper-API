@@ -25,4 +25,14 @@ route.post("/getcategory", (req: Request, res: Response) => {
   res.send(CategoryService.getCategoryById(id));
 });
 
+route.get("/import", (req: Request, res: Response) => {
+  CategoryService.importCategories();
+  res.sendStatus(200);
+});
+
+route.get("/export", (req: Request, res: Response) => {
+  CategoryService.exportCategories();
+  res.sendStatus(200);
+});
+
 export default route;

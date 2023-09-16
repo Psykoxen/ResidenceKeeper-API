@@ -17,4 +17,12 @@ export namespace PaymentService {
   export const getPaymentByUser = (email: string, password: string): any => {
     return PaymentHelper.getPaymentByUser(email, password);
   };
+
+  export const importPayments = (): void => {
+    PaymentHelper.importPayments();
+  };
+
+  export const exportPayments = (): void => {
+    PaymentHelper.exportPayments();
+  };
 }

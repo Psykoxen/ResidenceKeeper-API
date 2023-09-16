@@ -1,5 +1,6 @@
 import { database } from "../../config/database";
 import Payment from "./payment";
+import jsonfile from "jsonfile";
 
 export namespace PaymentHelper {
   export const getAllPayments = (): Array<Payment> => {
@@ -130,6 +131,25 @@ export namespace PaymentHelper {
 
       return payments;
     }
+  };
+
+  export const importPayments = (): void => {
+    const data = jsonfile.readFileSync("./backup/payments.json");
+    database.prepare("DELETE FROM payment").run();
+    data.forEach((payment: Payment) => {
+      database
+        .prepare(
+          `
+          INSERT INTO payment (id,user_id,home_id,amount,date,name,category_id,expense) VALUES (@id,@user_id,@home_id,@amount,@date,@name,@category_id,@expense)
+          `
+        )
+        .run(payment);
+    });
+  };
+
+  export const exportPayments = (): void => {
+    const data = getAllPayments();
+    jsonfile.writeFileSync("./backup/payments.json", data);
   };
 }
 export default PaymentHelper;

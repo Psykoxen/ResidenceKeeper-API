@@ -26,4 +26,13 @@ route.delete("/delete", (req: Request, res: Response) => {
   res.sendStatus(200);
 });
 
+route.get("/import", (req: Request, res: Response) => {
+  PaymentService.importPayments();
+  res.sendStatus(200);
+});
+
+route.get("/export", (req: Request, res: Response) => {
+  PaymentService.exportPayments();
+  res.sendStatus(200);
+});
 export default route;

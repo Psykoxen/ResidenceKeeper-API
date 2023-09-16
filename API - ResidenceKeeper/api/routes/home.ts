@@ -35,4 +35,13 @@ route.post("/getresidence", (req: Request, res: Response) => {
   res.send(HomeService.getHomeById(homeId));
 });
 
+route.get("/import", (req: Request, res: Response) => {
+  HomeService.importHomes();
+  res.sendStatus(200);
+});
+
+route.get("/export", (req: Request, res: Response) => {
+  HomeService.exportHomes();
+  res.sendStatus(200);
+});
 export default route;

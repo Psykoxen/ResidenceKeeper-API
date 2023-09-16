@@ -2,6 +2,7 @@ import sha256 from "sha256";
 import { database } from "../../config/database";
 import User from "./user";
 import Payment from "../payment/payment";
+import jsonfile from "jsonfile";
 
 export namespace UserHelper {
   export const getAllUsers = (): Array<User> => {
@@ -76,5 +77,24 @@ export namespace UserHelper {
     } catch (error) {
       return null;
     }
+  };
+
+  export const importUsers = (): void => {
+    const data = jsonfile.readFileSync("./backup/users.json");
+    database.prepare("DELETE FROM user").run();
+    data.forEach((user: User) => {
+      database
+        .prepare(
+          `
+          INSERT INTO user (id,username,email,keypass) VALUES (@id,@username,@email)
+          `
+        )
+        .run(user);
+    });
+  };
+
+  export const exportUsers = (): void => {
+    const data = getAllUsers();
+    jsonfile.writeFileSync("./backup/users.json", data);
   };
 }

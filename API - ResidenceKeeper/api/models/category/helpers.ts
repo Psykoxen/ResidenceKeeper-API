@@ -1,5 +1,6 @@
 import { database } from "../../config/database";
 import Category from "./category";
+import jsonfile from "jsonfile";
 
 export namespace CategoryHelper {
   export const getAllCategories = (): Array<Category> => {
@@ -41,6 +42,25 @@ export namespace CategoryHelper {
       .get({ id }) as Category;
 
     return category;
+  };
+
+  export const importCategories = (): void => {
+    const data = jsonfile.readFileSync("./backup/categories.json");
+    database.prepare("DELETE FROM category").run();
+    data.forEach((category: Category) => {
+      database
+        .prepare(
+          `
+          INSERT INTO category (id,name) VALUES (@id,@name)
+          `
+        )
+        .run(category);
+    });
+  };
+
+  export const exportCategories = (): void => {
+    const data = getAllCategories();
+    jsonfile.writeFileSync("./backup/categories.json", data);
   };
 }
 

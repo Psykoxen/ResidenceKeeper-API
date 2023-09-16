@@ -4,6 +4,7 @@ import Resident from "../user/user";
 import Home from "./home";
 import Payment from "../payment/payment";
 import { UserHelper } from "../user/helpers";
+import jsonfile from "jsonfile";
 
 export namespace HomeHelper {
   export const getAllHomes = (): Array<Home> => {
@@ -115,5 +116,24 @@ export namespace HomeHelper {
     });
 
     return statement;
+  };
+
+  export const importHomes = (): void => {
+    const data = jsonfile.readFileSync("./backup/homes.json");
+    database.prepare("DELETE FROM home").run();
+    data.forEach((home: Home) => {
+      database
+        .prepare(
+          `
+          INSERT INTO home (id,name) VALUES (@id,@name)
+          `
+        )
+        .run(home);
+    });
+  };
+
+  export const exportHomes = (): void => {
+    const data = getAllHomes();
+    jsonfile.writeFileSync("./backup/homes.json", data);
   };
 }

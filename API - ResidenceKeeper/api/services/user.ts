@@ -13,4 +13,12 @@ export namespace UserService {
   export const getUserByEmail = (email: string, keypass: string): any => {
     return UserHelper.getUserByEmail(email, keypass);
   };
+
+  export const importUsers = (): void => {
+    UserHelper.importUsers();
+  };
+
+  export const exportUsers = (): void => {
+    UserHelper.exportUsers();
+  };
 }
