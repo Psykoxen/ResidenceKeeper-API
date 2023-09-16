@@ -1,6 +1,9 @@
 import { database } from "../../config/database";
+import PaymentHelper from "../payment/helpers";
 import Resident from "../user/user";
 import Home from "./home";
+import Payment from "../payment/payment";
+import { UserHelper } from "../user/helpers";
 
 export namespace HomeHelper {
   export const getAllHomes = (): Array<Home> => {
@@ -58,6 +61,7 @@ export namespace HomeHelper {
         `
       )
       .all({ userId });
+    console.log(homeId);
     const homes: Home[] = [];
     homeId.forEach((id: any) => {
       const row = database
@@ -69,5 +73,47 @@ export namespace HomeHelper {
     });
     console.log(homes);
     return homes;
+  };
+
+  export const getHomeById = (homeId: number): any => {
+    const row = database
+      .prepare("SELECT * FROM home WHERE id = ?")
+      .get(homeId) as Home;
+    if (row) {
+      const residence = {
+        home: new Home(row.id, row.name),
+        payments: PaymentHelper.getPaymentByHome(homeId),
+        balance: getHomeBalance(homeId),
+      };
+      return residence;
+    }
+    throw new Error("Home not found");
+  };
+
+  export const getHomeBalance = (homeId: number): any => {
+    const payments = PaymentHelper.getPaymentByHome(homeId);
+    const statement: {
+      balance: number;
+      users: { userId: number; balance: number }[];
+    } = { balance: 0, users: [] };
+
+    getHomeResidents(homeId).forEach((user: Resident) => {
+      const userBalance: { userId: number; balance: number } = {
+        userId: user.id,
+        balance: 0,
+      };
+      userBalance.balance = UserHelper.getBalance(user.id, homeId).balance;
+      statement.users.push(userBalance);
+    });
+
+    payments.forEach((payment: Payment) => {
+      if (payment.expense === "true") {
+        statement.balance -= payment.amount;
+      } else {
+        statement.balance += payment.amount;
+      }
+    });
+
+    return statement;
   };
 }

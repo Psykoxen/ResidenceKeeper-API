@@ -22,4 +22,8 @@ export namespace HomeService {
   export const getHomeByResidentId = (userId: number): Array<Home> => {
     return HomeHelper.getHomeByResidentId(userId);
   };
+
+  export const getHomeById = (homeId: number): any => {
+    return HomeHelper.getHomeById(homeId);
+  };
 }

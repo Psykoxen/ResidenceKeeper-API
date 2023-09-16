@@ -30,4 +30,9 @@ route.post("/gethomesresident", (req: Request, res: Response) => {
   res.send(HomeService.getHomeByResidentId(userId));
 });
 
+route.post("/getresidence", (req: Request, res: Response) => {
+  const { homeId } = req.body;
+  res.send(HomeService.getHomeById(homeId));
+});
+
 export default route;
