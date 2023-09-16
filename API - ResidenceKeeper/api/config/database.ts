@@ -63,9 +63,11 @@ CREATE TABLE IF NOT EXISTS payment
     amount INTEGER NOT NULL,
     date DATE NOT NULL,
     name VARCHAR NOT NULL,
+    expense VARCHAR NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user (id),
     FOREIGN KEY (home_id) REFERENCES home (id),
     FOREIGN KEY (category_id) REFERENCES category (id)
+
 )
 `
   ).run();
