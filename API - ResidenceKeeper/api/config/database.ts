@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS home_user
 (
     user_id INTEGER NOT NULL,
     home_id INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id),
-    FOREIGN KEY (home_id) REFERENCES home (id),
+    FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+    FOREIGN KEY (home_id) REFERENCES home (id) ON DELETE CASCADE,
     PRIMARY KEY (user_id, home_id)
 )
 `
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS payment
     date DATE NOT NULL,
     name VARCHAR NOT NULL,
     expense VARCHAR NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id),
-    FOREIGN KEY (home_id) REFERENCES home (id),
+    FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+    FOREIGN KEY (home_id) REFERENCES home (id) ON DELETE CASCADE,
     FOREIGN KEY (category_id) REFERENCES category (id)
 
 )
@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS payment_user_repartition
     payment_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     repartition INTEGER NOT NULL,
-    FOREIGN KEY (payment_id) REFERENCES payment (id),
-    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (payment_id) REFERENCES payment (id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
     PRIMARY KEY (payment_id, user_id)
 )
 `

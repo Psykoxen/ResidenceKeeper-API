@@ -7,6 +7,11 @@ import { UserHelper } from "../user/helpers";
 import jsonfile from "jsonfile";
 
 export namespace HomeHelper {
+  interface Residence {
+    home: Home;
+    residents: number[];
+  }
+
   export const getAllHomes = (): Array<Home> => {
     const rows = database.prepare("SELECT * FROM home").all();
     const homes: Home[] = rows.map((row: any) => new Home(row.id, row.name));
@@ -119,19 +124,42 @@ export namespace HomeHelper {
   export const importHomes = (): void => {
     const data = jsonfile.readFileSync("./backup/homes.json");
     database.prepare("DELETE FROM home").run();
-    data.forEach((home: Home) => {
+    data.forEach((residence: Residence) => {
       database
         .prepare(
           `
           INSERT INTO home (id,name) VALUES (@id,@name)
           `
         )
-        .run(home);
+        .run(residence.home);
+      residence.residents.forEach((residentId) => {
+        database
+          .prepare(
+            `
+            INSERT INTO home_user (home_id,user_id) VALUES (@homeId,@residentId)
+            `
+          )
+          .run({ homeId: residence.home.id, residentId });
+      });
     });
   };
 
   export const exportHomes = (): void => {
-    const data = getAllHomes();
+    const data: Residence[] = [];
+    const homes = getAllHomes(); // Assurez-vous d'avoir une fonction getAllHomes définie.
+
+    homes.forEach((home) => {
+      const residents = getHomeResidents(home.id); // Assurez-vous d'avoir une fonction getHomeResidents définie.
+      const residence: Residence = {
+        home: home,
+        residents: [],
+      };
+      residents.forEach((resident) => {
+        residence.residents.push(resident.id);
+      });
+      data.push(residence);
+    });
+
     jsonfile.writeFileSync("./backup/homes.json", data);
   };
 }
