@@ -1,4 +1,5 @@
-<h1 align="center">Welcome to Residence Keeper 👋</h1>
+<h1 align="center">Residence Keeper 👋</h1>
+
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/Psykoxen/ResidenceKeeper#readme" target="_blank">
@@ -15,6 +16,27 @@
 > Best tool to follow you home expense, share a budget and well manage your home or your travel
 
 ### 🏠 [Homepage](https://github.com/Psykoxen/ResidenceKeeper#readme)
+
+## Features
+
+- ✅ Login System
+- ⌛ Residence Page
+  - [x] General residence page
+  - [ ] Setting page
+  - [x] API Interactions
+  - [x] Summary information
+- ⌛ Payment system
+  - [ ] Adding / Deleting / Editing datas
+  - [ ] Synchronizing bank API
+  - [ ] API Interactions
+- ⌛ Account page
+  - [ ] Account settings
+  - [ ] Account resume
+  - [ ] API Interactions
+- ⌛ Home page
+  - [x] List of homes
+  - [ ] Settings
+  - [x] API Interactions
 
 ## Install
 
