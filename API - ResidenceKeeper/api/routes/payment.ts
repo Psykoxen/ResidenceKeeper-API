@@ -12,7 +12,6 @@ route.post("/create", (req: Request, res: Response) => {
   const payment = req.body;
   PaymentService.createPayment(payment);
   res.sendStatus(200);
-  console.log(payment);
 });
 
 route.post("/user", (req: Request, res: Response) => {

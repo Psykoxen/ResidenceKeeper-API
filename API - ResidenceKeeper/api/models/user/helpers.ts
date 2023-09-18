@@ -65,7 +65,6 @@ export namespace UserHelper {
       let balance = 0;
 
       payments.forEach((payment) => {
-        console.log(Boolean(payment.expense));
         if (payment.expense === "true") {
           balance -= payment.amount;
         } else {
@@ -86,7 +85,7 @@ export namespace UserHelper {
       database
         .prepare(
           `
-          INSERT INTO user (id,username,email,keypass) VALUES (@id,@username,@email)
+          INSERT INTO user (id,username,email,keypass) VALUES (@id,@username,@email, @keypass)
           `
         )
         .run(user);

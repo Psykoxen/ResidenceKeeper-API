@@ -13,7 +13,6 @@ route.post("/create", (req: Request, res: Response) => {
   const user = req.body;
   UserService.createUser(user);
   res.sendStatus(200);
-  console.log(user);
 });
 
 route.post("/login", (req: Request, res: Response) => {

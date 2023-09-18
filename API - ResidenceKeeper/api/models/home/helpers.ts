@@ -62,7 +62,6 @@ export namespace HomeHelper {
         `
       )
       .all({ userId });
-    console.log(homeId);
     const homes: Home[] = [];
     homeId.forEach((id: any) => {
       const row = database
@@ -72,7 +71,6 @@ export namespace HomeHelper {
         homes.push(row);
       }
     });
-    console.log(homes);
     return homes;
   };
 
