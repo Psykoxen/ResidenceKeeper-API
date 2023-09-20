@@ -12,7 +12,7 @@ function Residences() {
     async function fetchData() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/home/gethomesresident",
+          "http://192.168.0.128:8080/api/home/gethomesresident",
           {
             method: "POST",
             mode: "cors",

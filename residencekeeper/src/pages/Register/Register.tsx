@@ -19,7 +19,7 @@ function Register() {
     if (email === emailConfirm && keypass === keypassConfirm) {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/user/register",
+          "http://192.168.0.128:8080/api/user/register",
           {
             method: "POST",
             mode: "cors",

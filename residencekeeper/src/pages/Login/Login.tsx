@@ -15,7 +15,7 @@ function Login() {
     // Assurez-vous de gérer la réponse de l'API correctement.
 
     try {
-      const response = await fetch("http://localhost:8080/api/user/login", {
+      const response = await fetch("http://192.168.0.128:8080/api/user/login", {
         method: "POST",
         mode: "cors",
         body: JSON.stringify({ email, keypass }),
@@ -44,25 +44,27 @@ function Login() {
   return (
     <div className="login">
       <div></div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={keypass}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
-      <Link to="/register" className="login-link">
-        Not a member yet ? <span>Register</span>
-      </Link>
+      <div className="page-content">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={keypass}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Login</button>
+        </form>
+        <Link to="/register" className="login-link">
+          Not a member yet ? <span>Register</span>
+        </Link>
+      </div>
       <p className="brand">Residence Keeper®</p>
     </div>
   );

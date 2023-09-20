@@ -11,7 +11,7 @@ function ResidenceDetail() {
     async function fetchData() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/home/getresidence", // Assurez-vous que l'URL est correcte
+          "http://192.168.0.128:8080/api/home/getresidence", // Assurez-vous que l'URL est correcte
           {
             method: "POST",
             mode: "cors",
