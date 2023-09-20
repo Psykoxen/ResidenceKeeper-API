@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
 import User from "../../types/User";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [user, setUserData] = useState<User | null>(null);
@@ -59,6 +60,9 @@ function Login() {
         />
         <button type="submit">Login</button>
       </form>
+      <Link to="/register" className="login-link">
+        Not a member yet ? <span>Register</span>
+      </Link>
       <p className="brand">Residence Keeper®</p>
     </div>
   );

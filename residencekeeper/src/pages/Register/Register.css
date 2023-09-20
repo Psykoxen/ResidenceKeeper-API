@@ -1,39 +1,39 @@
-.login {
+.register {
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: #0b65ed;
 }
-.login div:first-child {
+.register div:first-child {
   height: 30vh;
   width: 100%;
   background-color: #0b65ed;
   border-radius: 0% 0% 100% 0%;
 }
 
-.login h1 {
+.register h1 {
   margin-top: 10vh;
 }
-.login form {
+.register form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  height: 20vh;
+  height: 35vh;
 }
 
-.login form input {
+.register form input {
   border: 2px solid #0b65ed;
   border-radius: 5px;
   padding: 7px;
 }
 
-.login form input:focus {
+.register form input:focus {
   outline: none;
 }
 
-.login form button {
+.register form button {
   border: 2px solid #0b65ed;
   border-radius: 5px;
   padding: 7px 20px;
@@ -42,18 +42,18 @@
   font-weight: bold;
 }
 
-.login .brand {
+.register .brand {
   color: #0b65ed;
   text-align: center;
   position: absolute;
   bottom: 0;
 }
 
-.login-link {
+.register-link {
   text-decoration: none;
   color: #0b65ed;
 }
 
-.login-link span {
+.register-link span {
   font-weight: bold;
 }
