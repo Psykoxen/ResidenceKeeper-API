@@ -51,43 +51,45 @@ function Register() {
   return (
     <div className="register">
       <div></div>
-      <h1>Join the team</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Confirm your email"
-          value={emailConfirm}
-          onChange={(e) => setEmailConfirm(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={keypass}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Confirm your password"
-          value={keypassConfirm}
-          onChange={(e) => setKeypassConfirm(e.target.value)}
-        />
-        <button type="submit">Register</button>
-      </form>
-      <Link to="/login" className="login-link">
-        Already a member ? <span>Login</span>
-      </Link>
+      <div className="page-content">
+        <h1>Join the team</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Confirm your email"
+            value={emailConfirm}
+            onChange={(e) => setEmailConfirm(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={keypass}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm your password"
+            value={keypassConfirm}
+            onChange={(e) => setKeypassConfirm(e.target.value)}
+          />
+          <button type="submit">Register</button>
+        </form>
+        <Link to="/login" className="register-link">
+          Already a member ? <span>Login</span>
+        </Link>{" "}
+      </div>
       <p className="brand">Residence Keeper®</p>
     </div>
   );
