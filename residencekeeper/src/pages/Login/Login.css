@@ -39,6 +39,7 @@
   border: 2px solid #0b65ed;
   border-radius: 5px;
   padding: 7px;
+  color: #0b65ed;
 }
 
 .login form input:focus {

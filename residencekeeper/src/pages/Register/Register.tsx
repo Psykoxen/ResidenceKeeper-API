@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Register.css";
 import User from "../../types/User";
 import { Link } from "react-router-dom";
+import Brand from "../../components/Brand/Brand";
 
 function Register() {
   const [user, setUserData] = useState<User | null>(null);
@@ -52,7 +53,7 @@ function Register() {
     <div className="register">
       <div></div>
       <div className="page-content">
-        <h1>Join the team</h1>
+        <h1>Join the team 🤙</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -86,11 +87,11 @@ function Register() {
           />
           <button type="submit">Register</button>
         </form>
-        <Link to="/login" className="register-link">
-          Already a member ? <span>Login</span>
-        </Link>{" "}
+        <p className="register-link">
+          Already a member ? <Link to="/login">Login</Link>
+        </p>
       </div>
-      <p className="brand">Residence Keeper®</p>
+      <Brand />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Login.css";
 import User from "../../types/User";
 import { Link } from "react-router-dom";
+import Brand from "../../components/Brand/Brand";
 
 function Login() {
   const [user, setUserData] = useState<User | null>(null);
@@ -45,7 +46,7 @@ function Login() {
     <div className="login">
       <div></div>
       <div className="page-content">
-        <h1>Login</h1>
+        <h1>Login 👋</h1>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -65,7 +66,7 @@ function Login() {
           Not a member yet ? <span>Register</span>
         </Link>
       </div>
-      <p className="brand">Residence Keeper®</p>
+      <Brand />
     </div>
   );
 }

@@ -54,19 +54,13 @@
   font-weight: bold;
 }
 
-.register .brand {
+.register-link {
   color: #0b65ed;
   text-align: center;
-  position: absolute;
-  bottom: 0;
-  height: 4vh;
 }
 
-.register-link {
-  text-decoration: none;
-  color: #0b65ed;
-}
-
-.register-link span {
+.register-link a {
   font-weight: bold;
+  color: #0b65ed;
+  text-decoration: none;
 }
