@@ -1,5 +1,7 @@
-<h1 align="center">Residence Keeper 👋</h1>
-
+<h1 align="center">⚙️ Residence Keeper API ⚙️</h1>
+<div align="center">
+  <img src="assets/logo.png" height=300>
+</br>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/Psykoxen/ResidenceKeeper#readme" target="_blank">
@@ -8,12 +10,12 @@
   <a href="https://github.com/Psykoxen/ResidenceKeeper/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/Psykoxen/ResidenceKeeper/blob/master/LICENSE" target="_blank">
-    <img alt="License: ISC" src="https://img.shields.io/github/license/Psykoxen/Residence Keeper" />
-  </a>
+  
 </p>
 
-> Best tool to follow you home expense, share a budget and well manage your home or your travel
+**Best tool to follow you home expense, share a budget and well manage your home or your travel**
+
+</div>
 
 ## API Routes
 
