@@ -19,6 +19,11 @@ route.post("/user", (req: Request, res: Response) => {
   res.send(PaymentService.getPaymentByUser(email, password));
 });
 
+route.post("/home", (req: Request, res: Response) => {
+  const { id } = req.body;
+  res.send(PaymentService.getPaymentByHome(id));
+});
+
 route.delete("/delete", (req: Request, res: Response) => {
   const { id } = req.body;
   PaymentService.deletePayment(id);

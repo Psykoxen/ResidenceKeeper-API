@@ -18,6 +18,10 @@ export namespace PaymentService {
     return PaymentHelper.getPaymentByUser(email, password);
   };
 
+  export const getPaymentByHome = (id: number): any => {
+    return PaymentHelper.getPaymentByHome(id);
+  };
+
   export const importPayments = (): void => {
     PaymentHelper.importPayments();
   };
