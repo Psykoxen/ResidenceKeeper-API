@@ -3,13 +3,11 @@
   <img src="assets/logo.png" height=300>
 </br>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/Psykoxen/ResidenceKeeper#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
-  <a href="https://github.com/Psykoxen/ResidenceKeeper/graphs/commit-activity" target="_blank">
-    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
-  </a>
+  
+  ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+  ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+  ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+  ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
   
 </p>
 
@@ -17,10 +15,14 @@
 
 </div>
 
-## API Routes
+## 📑 API Routes
+
 The routes documentation is available [here](api/routes/) !
 
-## Author
+## 🏠 Utilisation
+- [Residence Keeper](https://github.com/Psykoxen/Residencekeeper)
+
+## 👨‍💻 Author
 
 👤 **Antoine Voillot**
 
@@ -38,4 +40,4 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2023 [Antoine Voillot](https://github.com/Psykoxen).<br />
-This project is [ISC](https://github.com/Psykoxen/ResidenceKeeper/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/Psykoxen/ResidenceKeeper/blob/master/LICENSE) licensed.
