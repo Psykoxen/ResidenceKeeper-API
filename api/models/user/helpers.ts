@@ -3,6 +3,7 @@ import { database } from "../../config/database";
 import User from "./user";
 import Payment from "../payment/payment";
 import jsonfile from "jsonfile";
+import PaymentHelper from "../payment/helpers";
 
 export namespace UserHelper {
   export const getAllUsers = (): Array<User> => {
@@ -40,36 +41,24 @@ export namespace UserHelper {
 
   export const getBalance = (userId: number, homeId: number): any => {
     try {
-      const rows = database
-        .prepare(
-          `
-          SELECT * FROM payment WHERE user_id = @userId AND home_id = @homeId
-          `
-        )
-        .all({ userId, homeId });
-
-      const payments: Payment[] = rows.map(
-        (row: any) =>
-          new Payment(
-            row.id,
-            row.user_id,
-            row.home_id,
-            row.amount,
-            row.date,
-            row.name,
-            row.category_id,
-            row.expense
-          )
-      );
+      const payments = PaymentHelper.getPaymentByHomeAndUser(
+        userId,
+        homeId
+      ) as Payment[];
 
       let balance = 0;
 
       payments.forEach((payment) => {
-        if (payment.expense === "true") {
-          balance -= payment.amount;
-        } else {
-          balance += payment.amount;
-        }
+        console.log(payment);
+        payment.repartition.forEach((repartition) => {
+          if (repartition.user_id === userId) {
+            if (payment.expense === "true") {
+              balance -= (payment.amount * repartition.repartition) / 100;
+            } else {
+              balance += (payment.amount * repartition.repartition) / 100;
+            }
+          }
+        });
       });
 
       return { balance: balance };

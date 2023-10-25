@@ -1,23 +1,34 @@
 import { database } from "../../config/database";
+import User from "../user/user";
 import Payment from "./payment";
 import jsonfile from "jsonfile";
+import userRepartion from "./userRepartion";
 
 export namespace PaymentHelper {
   export const getAllPayments = (): Array<Payment> => {
-    const rows = database.prepare("SELECT * FROM payment").all();
-    const payments: Payment[] = rows.map(
-      (row: any) =>
-        new Payment(
-          row.id,
-          row.user_id,
-          row.home_id,
-          row.amount,
-          row.date,
-          row.name,
-          row.category_id,
-          row.expense
+    const rows_payments = database
+      .prepare("SELECT * FROM payment ORDER BY date DESC")
+      .all();
+    const payments: Payment[] = rows_payments.map((row: any) => {
+      const rows_repartition = database
+        .prepare(
+          `
+            SELECT * FROM payment_user_repartition WHERE payment_id = @payment_id
+            `
         )
-    );
+        .all({ payment_id: row.id }) as userRepartion[];
+      return new Payment(
+        row.id,
+        row.user_id,
+        row.home_id,
+        row.amount,
+        row.date,
+        row.name,
+        row.category_id,
+        row.expense,
+        rows_repartition
+      );
+    });
 
     return payments;
   };
@@ -30,6 +41,25 @@ export namespace PaymentHelper {
         `
       )
       .run(payment);
+
+    const idResult = database
+      .prepare("SELECT last_insert_rowid() as id")
+      .get() as any;
+    const id = idResult.id;
+
+    payment.repartition.forEach((repartition) => {
+      database
+        .prepare(
+          `
+             INSERT INTO payment_user_repartition (payment_id, user_id, repartition) VALUES (@payment_id, @user_id, @repartition)
+             `
+        )
+        .run({
+          payment_id: id,
+          user_id: repartition.user_id,
+          repartition: repartition.repartition,
+        });
+    });
   };
 
   export const deletePayment = (id: number): void => {
@@ -46,95 +76,112 @@ export namespace PaymentHelper {
     email: string,
     password: string
   ): Array<Payment> => {
-    const rows = database
+    const user = database
       .prepare(
         `
-        SELECT * FROM payment WHERE user_id = @user_id
+        SELECT * FROM user WHERE email = @email AND keypass = @password
         `
       )
-      .all({ email, password });
-    const payments: Payment[] = rows.map(
-      (row: any) =>
-        new Payment(
-          row.id,
-          row.user_id,
-          row.home_id,
-          row.amount,
-          row.date,
-          row.name,
-          row.category_id,
-          row.expense
+      .get({ email, password }) as User;
+    const rows_payments = database
+      .prepare(
+        `
+        SELECT * FROM payment WHERE user_id = @user_id ORDER BY date DESC
+        `
+      )
+      .all({ user_id: user.id });
+    const payments: Payment[] = rows_payments.map((row: any) => {
+      const rows_repartition = database
+        .prepare(
+          `
+              SELECT * FROM payment_user_repartition WHERE payment_id = @payment_id
+              `
         )
-    );
+        .all({ payment_id: row.id }) as userRepartion[];
+      return new Payment(
+        row.id,
+        row.user_id,
+        row.home_id,
+        row.amount,
+        row.date,
+        row.name,
+        row.category_id,
+        row.expense,
+        rows_repartition
+      );
+    });
 
     return payments;
   };
 
   export const getPaymentByHome = (homeId: number): Array<Payment> => {
-    const rows = database
+    const rows_payments = database
       .prepare(
         `
-        SELECT * FROM payment WHERE home_id = @homeId
+        SELECT * FROM payment WHERE home_id = @homeId ORDER BY date ASC
         `
       )
       .all({ homeId });
-    const payments: Payment[] = rows.map(
-      (row: any) =>
-        new Payment(
-          row.id,
-          row.user_id,
-          row.home_id,
-          row.amount,
-          row.date,
-          row.name,
-          row.category_id,
-          row.expense
+    const payments: Payment[] = rows_payments.map((row: any) => {
+      const rows_repartition = database
+        .prepare(
+          `
+              SELECT * FROM payment_user_repartition WHERE payment_id = @payment_id
+              `
         )
-    );
-
+        .all({ payment_id: row.id }) as userRepartion[];
+      return new Payment(
+        row.id,
+        row.user_id,
+        row.home_id,
+        row.amount,
+        row.date,
+        row.name,
+        row.category_id,
+        row.expense,
+        rows_repartition
+      );
+    });
     return payments;
   };
 
   export const getPaymentByHomeAndUser = (
     homeId: number,
-    userId: number,
-    password: string
+    userId: number
   ): any => {
-    const user = database
+    const rows_payments = database
       .prepare(
         `
-            SELECT id FROM user WHERE id = @userId AND password = @password
-            `
+                SELECT * FROM payment WHERE home_id = @homeId AND user_id = @userId ORDER BY date DESC
+                `
       )
-      .get({ userId, password });
-    if (user) {
-      const rows = database
+      .all({ homeId, userId });
+    const payments: Payment[] = rows_payments.map((row: any) => {
+      const rows_repartition = database
         .prepare(
           `
-                SELECT * FROM payment WHERE home_id = @homeId AND user_id = @userId
+                SELECT * FROM payment_user_repartition WHERE payment_id = @payment_id
                 `
         )
-        .all({ homeId, userId });
-      const payments: Array<Payment> = rows.map(
-        (row: any) =>
-          new Payment(
-            row.id,
-            row.user_id,
-            row.home_id,
-            row.amount,
-            row.date,
-            row.name,
-            row.category_id,
-            row.expense
-          )
+        .all({ payment_id: row.id }) as userRepartion[];
+      return new Payment(
+        row.id,
+        row.user_id,
+        row.home_id,
+        row.amount,
+        row.date,
+        row.name,
+        row.category_id,
+        row.expense,
+        rows_repartition
       );
-
-      return payments;
-    }
+    });
+    return payments;
   };
 
   export const importPayments = (): void => {
     const data = jsonfile.readFileSync("./backup/payments.json");
+    database.prepare("DELETE FROM payment_user_repartition").run();
     database.prepare("DELETE FROM payment").run();
     data.forEach((payment: Payment) => {
       database
@@ -144,6 +191,23 @@ export namespace PaymentHelper {
           `
         )
         .run(payment);
+      const idResult = database
+        .prepare("SELECT last_insert_rowid() as id")
+        .get() as any;
+      const id = idResult.id;
+      payment.repartition.forEach((repartition) => {
+        database
+          .prepare(
+            `
+             INSERT INTO payment_user_repartition (payment_id, user_id, repartition) VALUES (@payment_id, @user_id, @repartition)
+             `
+          )
+          .run({
+            payment_id: id,
+            user_id: repartition.user_id,
+            repartition: repartition.repartition,
+          });
+      });
     });
   };
 

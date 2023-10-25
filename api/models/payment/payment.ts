@@ -1,3 +1,5 @@
+import userRepartion from "./userRepartion";
+
 class Payment {
   id: number;
   user_id: number;
@@ -7,7 +9,7 @@ class Payment {
   name: string;
   category_id: number;
   expense: string;
-
+  repartition: userRepartion[];
   constructor(
     id: number,
     user_id: number,
@@ -16,7 +18,8 @@ class Payment {
     date: Date,
     name: string,
     category_id: number,
-    expense: string
+    expense: string,
+    repartition: userRepartion[]
   ) {
     this.id = id;
     this.user_id = user_id;
@@ -26,6 +29,7 @@ class Payment {
     this.name = name;
     this.category_id = category_id;
     this.expense = expense;
+    this.repartition = repartition;
   }
 }
 

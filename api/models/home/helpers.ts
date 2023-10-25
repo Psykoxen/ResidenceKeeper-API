@@ -86,6 +86,7 @@ export namespace HomeHelper {
     if (row) {
       const residence = {
         home: new Home(row.id, row.name),
+        residents: getHomeResidents(homeId),
         payments: PaymentHelper.getPaymentByHome(homeId),
         balance: getHomeBalance(homeId),
       };
